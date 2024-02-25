@@ -27,7 +27,7 @@ with open(budget_data) as csvfile:
         month_of_change.append(row[0])
 
 # calculate average change
-revenue_avg = sum(revenue_change_list) / len(revenue_change_list)
+revenue_avg = sum(revenue_change_list[1:]) / len(revenue_change_list[1:])
 
 # find greatest increase and decrease
 greatest_increase = max(revenue_change_list)
