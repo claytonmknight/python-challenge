@@ -9,7 +9,6 @@ file_to_output = "PyPoll/analysis/election_analysis.txt"
 # initialize variables
 total_votes = 0
 candidate_votes = {}
-candidates = []
 
 # import csv
 with open(election_data) as csvfile:
@@ -20,12 +19,9 @@ with open(election_data) as csvfile:
         total_votes += 1
         candidate = row[2]  # Assuming Candidate is the third column (index 2)
 
-        # Add candidate to list if not already present
-        if candidate not in candidates:
-            candidates.append(candidate)
-            candidate_votes[candidate] = 0
-
         # Increment candidate's vote count
+        if candidate not in candidate_votes:
+            candidate_votes[candidate] = 0
         candidate_votes[candidate] += 1
 
 # output
@@ -37,8 +33,7 @@ output = (
 )
 
 # calculate and append candidate stats to output
-for candidate in candidates:
-    votes = candidate_votes[candidate]
+for candidate, votes in candidate_votes.items():
     percentage = (votes / total_votes) * 100
     output += f"{candidate}: {percentage:.3f}% ({votes})\n"
 
